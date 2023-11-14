@@ -23,7 +23,6 @@ class UserController extends Controller
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 
-        // Aquí puedes realizar cualquier otra lógica necesaria tras un inicio de sesión exitoso
 
         return response()->json([
             'message' => 'Inicio de sesión exitoso',
@@ -33,7 +32,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all(); // O puedes usar paginación si la lista es muy larga
+        $users = User::all(); 
         return response()->json($users);
     }
 
@@ -43,7 +42,7 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'type_user_id' => 'exists:type_user,id' // Asegúrate de que el tipo de usuario exista
+            'type_user_id' => 'exists:type_user,id' 
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
