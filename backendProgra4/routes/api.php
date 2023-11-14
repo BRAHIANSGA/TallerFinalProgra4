@@ -28,4 +28,8 @@ Route::apiResource('clientes', ClienteController::class);
 Route::apiResource('productos', ProductoController::class);
 Route::apiResource('compras', CompraController::class);
 Route::apiResource('typeusers', TypeUserController::class);
+
+
 Route::apiResource('users', UserController::class);
+Route::post('/login', [UserController::class, 'login']);
+

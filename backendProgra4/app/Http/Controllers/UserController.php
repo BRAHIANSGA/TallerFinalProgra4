@@ -4,9 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
 
+    public function login(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if (!$user || !Hash::check($validatedData['password'], $user->password)) {
+            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        }
+
+        // Aquí puedes realizar cualquier otra lógica necesaria tras un inicio de sesión exitoso
+
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso',
+            'user' => $user,
+            'typeUser' => $user->typeUser
+        ]);
+    }
     public function index()
     {
         $users = User::all(); // O puedes usar paginación si la lista es muy larga
@@ -68,14 +92,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-    
+
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-    
+
         $user->delete();
-    
+
         return response()->json(['message' => 'User deleted']);
     }
-    
+
 }
