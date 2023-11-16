@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import {
   Grid,
   Paper,
@@ -29,8 +30,23 @@ const Login = () => {
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };
-  return (
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita el recargado de la página
+    try {
+      const response = await axios.post("http://localhost:8000/api/login", {
+        email: email,
+        password: password,
+      });
+      console.log(response.data); // Aquí puedes manejar la respuesta
+    } catch (error) {
+      console.error("Error en el inicio de sesión", error.response);
+      // Aquí manejas los errores, como credenciales incorrectas
+    }
+  };
 
+  return (
     <Grid style={gridStyle}>
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
@@ -44,6 +60,8 @@ const Login = () => {
           placeholder="Enter username"
           fullWidth
           required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           label="Password"
@@ -51,6 +69,8 @@ const Login = () => {
           type="password"
           fullWidth
           required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <FormControlLabel
           control={<Checkbox name="checkedB" color="primary" />}
@@ -62,12 +82,12 @@ const Login = () => {
           variant="contained"
           style={btnstyle}
           fullWidth
+          onClick={handleSubmit}
         >
           Sign in
         </Button>
       </Paper>
     </Grid>
-
   );
 };
 

@@ -17,11 +17,13 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::where('email', $validatedData['email'])->first();
-
-        if (!$user || !Hash::check($validatedData['password'], $user->password)) {
+        $user = User::where('email', $validatedData['email'])
+             ->where('password', $validatedData['password'])
+             ->first();
+        
+        if (!$user) {
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
-        }
+        }       
 
 
         return response()->json([
