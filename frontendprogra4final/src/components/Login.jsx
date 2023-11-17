@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import fondoLogin from "../img/fondoLogin.jpg";
+import { useNavigate } from "react-router-dom";
 const gridStyle = {
   backgroundImage: `url(${fondoLogin})`,
   backgroundSize: "cover", // Esto hace que la imagen cubra todo el Grid
@@ -22,6 +23,9 @@ const gridStyle = {
 };
 
 const Login = () => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -39,9 +43,15 @@ const Login = () => {
         email: email,
         password: password,
       });
+      setError("");
       console.log(response.data); // Aquí puedes manejar la respuesta
+      localStorage.setItem("userId", response.data.id);
+      localStorage.setItem("userType", response.data.type_user_id);
+      // Redirigir al dashboard
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error en el inicio de sesión", error.response);
+      setError("Credenciales incorrectas");
       // Aquí manejas los errores, como credenciales incorrectas
     }
   };
@@ -63,6 +73,8 @@ const Login = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <br />
+        <br />
         <TextField
           label="Password"
           placeholder="Enter password"
@@ -72,10 +84,13 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Remember me"
-        />
+        {error && (
+          <Typography color="error" align="center">
+            {error}
+          </Typography>
+        )}
+        <br />
+        <br />
         <Button
           type="submit"
           color="primary"
