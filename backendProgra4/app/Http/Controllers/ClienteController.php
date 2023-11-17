@@ -17,6 +17,7 @@ class ClienteController extends Controller
     {
         $validatedData = $request->validate([
             'usuario_id' => 'required|exists:users,id',
+            'cedula' => 'required|max:255',
             'nombre' => 'required|max:255',
             'apellidos' => 'required|max:255',
             'numero_celular' => 'required|max:255',
@@ -51,6 +52,7 @@ class ClienteController extends Controller
 
         $validatedData = $request->validate([
             'usuario_id' => 'sometimes|exists:users,id',
+            'cedula' => 'required|max:255',
             'nombre' => 'sometimes|required|max:255',
             'apellidos' => 'sometimes|required|max:255',
             'numero_celular' => 'sometimes|required|max:255',
