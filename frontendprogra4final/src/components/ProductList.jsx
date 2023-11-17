@@ -34,15 +34,15 @@ const ProductList = () => {
   };
   const handleCreateProduct = () => {
     setOpenModal(true);
-    // Aquí implementarías la lógica para crear un producto
+
     console.log("Crear producto");
-    // Por ejemplo, podrías abrir un modal de creación de producto aquí
+
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/api/productos/${id}`);
-      fetchProductos(); // Recarga la lista de productos después de eliminar
+      fetchProductos(); 
       alert("Producto eliminado con exito!");
     } catch (error) {
       console.error("Error al eliminar el producto:", error);

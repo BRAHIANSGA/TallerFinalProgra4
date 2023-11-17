@@ -24,13 +24,11 @@ class Producto extends Model
         'disponible'
     ];
 
-    // Define la relación con la tabla de categorías
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
     }
 
-    // Define la relación con la tabla de compras (si es necesario)
     public function compras()
     {
         return $this->hasMany(Compra::class, 'producto_id');

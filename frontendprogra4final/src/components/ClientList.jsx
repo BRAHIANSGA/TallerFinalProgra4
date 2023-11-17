@@ -54,15 +54,13 @@ const ClientList = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
     setEditingClientId(null);
-    
   };
 
   const handleClientSaved = () => {
     fetchClientes(); // Recarga los clientes
     handleCloseModal(); // Cierra el modal
   };
-  // Aquí implementarías las funciones handleEdit y handleDelete
-  // Siguiendo una lógica similar a la del componente ProductList
+
 
   return (
     <Paper style={{ margin: "20px", overflowX: "auto" }}>
@@ -93,6 +91,7 @@ const ClientList = () => {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Cedula</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Apellidos</TableCell>
               <TableCell>Número Celular</TableCell>
@@ -103,6 +102,7 @@ const ClientList = () => {
           <TableBody>
             {clientes.map((cliente) => (
               <TableRow key={cliente.id}>
+                <TableCell>{cliente.cedula}</TableCell>
                 <TableCell>{cliente.nombre}</TableCell>
                 <TableCell>{cliente.apellidos}</TableCell>
                 <TableCell>{cliente.numero_celular}</TableCell>

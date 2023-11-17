@@ -22,13 +22,12 @@ class Compra extends Model
         'notas'
     ];
 
-    // Define la relación con la tabla de clientes
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
-    // Define la relación con la tabla de productos
+
     public function producto()
     {
         return $this->belongsTo(Producto::class, 'producto_id');

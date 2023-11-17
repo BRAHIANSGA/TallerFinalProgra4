@@ -19,7 +19,7 @@ const gridStyle = {
   backgroundSize: "cover", // Esto hace que la imagen cubra todo el Grid
   backgroundPosition: "center", // Esto centra la imagen en el Grid
   height: "95vh", // Esto hace que el Grid tenga el alto de toda la ventana
-  // Agrega aquí cualquier otro estilo que necesites
+
 };
 
 const Login = () => {
@@ -44,15 +44,21 @@ const Login = () => {
         password: password,
       });
       setError("");
-      console.log(response.data); // Aquí puedes manejar la respuesta
-      localStorage.setItem("userId", response.data.id);
-      localStorage.setItem("userType", response.data.type_user_id);
+      console.log(response.data); 
+      const userType = response.data.user.type_user_id;
+
+      localStorage.setItem("userId", response.data.user.id);
+      localStorage.setItem("userType", userType);
+      localStorage.setItem("email", response.data.user.email);
+      console.log('user id:',response.data.user.id);
+
+      console.log("Tipo de usuario:", userType);
       // Redirigir al dashboard
       navigate("/dashboard");
     } catch (error) {
       console.error("Error en el inicio de sesión", error.response);
       setError("Credenciales incorrectas");
-      // Aquí manejas los errores, como credenciales incorrectas
+      
     }
   };
 

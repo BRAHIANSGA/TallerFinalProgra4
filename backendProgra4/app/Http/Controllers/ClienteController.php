@@ -40,6 +40,17 @@ class ClienteController extends Controller
 
         return response()->json($cliente);
     }
+    public function buscarPorUsuarioId($userId)
+    {
+        $cliente = Cliente::where('usuario_id', $userId)->first();
+
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente no encontrado'], 404);
+        }
+
+        return response()->json($cliente);
+    }
+
 
 
     public function update(Request $request, $id)

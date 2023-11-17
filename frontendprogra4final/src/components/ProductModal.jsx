@@ -111,7 +111,7 @@ const ProductModal = ({
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <Typography variant="h6">Crear Producto</Typography>
-        {/* Campos del formulario */}
+     
         <TextField
           label="Nombre"
           name="nombre"

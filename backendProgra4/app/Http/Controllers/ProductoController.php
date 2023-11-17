@@ -67,6 +67,19 @@ class ProductoController extends Controller
 
         return response()->json($producto);
     }
+    public function actualizarStock(Request $request, $productoId)
+{
+    $producto = Producto::find($productoId);
+    if (!$producto) {
+        return response()->json(['message' => 'Producto no encontrado'], 404);
+    }
+
+    $cantidad = $request->input('cantidad');
+    $producto->stock -= $cantidad; 
+    $producto->save();
+
+    return response()->json($producto);
+}
 
 
     public function destroy($id)

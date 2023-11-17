@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('codigo')->unique(); // Código único del producto
+            $table->string('codigo')->unique();
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade')->nullable();
             $table->text('descripcion')->nullable();
-            $table->decimal('precio', 8, 2); // Precio con dos decimales
+            $table->decimal('precio', 8, 2); 
             $table->integer('stock');
-            $table->string('imagen')->nullable(); // URL de la imagen o path
-            $table->boolean('disponible')->default(true); // Si el producto está disponible
-            $table->timestamps(); // Fecha de creación y actualización
+            $table->string('imagen')->nullable();
+            $table->boolean('disponible')->default(true); 
+            $table->timestamps(); 
             $table->softDeletes();
         });
     }

@@ -8,6 +8,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  maxHeight: "90vh", // Ajusta el alto máximo
+  overflowY: "auto", // Permite el scroll vertical si es necesario
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -22,14 +24,16 @@ const ClientModal = ({
 }) => {
   const [tiposUsuarios, setTiposUsuarios] = useState([]);
   const [usuario, setUsuario] = useState({
+    cedula:"",
     name: "",
     email: "",
     password: "",
-    type_user_id: "", // Asegúrate de que este campo tenga un valor predeterminado si es necesario
+    type_user_id: "",
   });
 
   const initialState = {
     usuario_id: "",
+    cedula: "",
     nombre: "",
     apellidos: "",
     numero_celular: "",
@@ -109,7 +113,7 @@ const ClientModal = ({
         <Typography variant="h6">
           {isEdit ? "Editar Cliente" : "Crear Cliente"}
         </Typography>
-        {/* Campos para el usuario, solo si es un nuevo cliente */}
+        
         {!isEdit && (
           <>
             <TextField
@@ -154,6 +158,14 @@ const ClientModal = ({
             </FormControl>
           </>
         )}
+        <TextField
+          label="Cedula"
+          name="cedula"
+          value={cliente.cedula}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
         <TextField
           label="Nombre de Usuario"
           name="nombre"

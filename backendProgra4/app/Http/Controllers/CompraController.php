@@ -18,12 +18,13 @@ class CompraController extends Controller
         $validatedData = $request->validate([
             'cliente_id' => 'required|exists:clientes,id',
             'producto_id' => 'required|exists:productos,id',
+            'codigo' => 'sometimes|max:255',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric',
             'total' => 'required|numeric',
             'fecha_compra' => 'sometimes|date',
             'estado' => 'sometimes|max:255',
-            'notas' => 'nullable'
+            'notas' => 'nullable',
         ]);
 
         $compra = Compra::create($validatedData);
@@ -55,6 +56,7 @@ class CompraController extends Controller
         $validatedData = $request->validate([
             'cliente_id' => 'sometimes|exists:clientes,id',
             'producto_id' => 'sometimes|exists:productos,id',
+            'codigo' => 'sometimes|max:255',
             'cantidad' => 'sometimes|integer|min:1',
             'precio_unitario' => 'sometimes|numeric',
             'total' => 'sometimes|numeric',

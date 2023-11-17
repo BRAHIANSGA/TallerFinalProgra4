@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes');
             $table->foreignId('producto_id')->constrained('productos');
+            $table->string('codigo');
             $table->integer('cantidad');
             $table->decimal('precio_unitario', 8, 2);
             $table->decimal('total', 8, 2);
             $table->timestamp('fecha_compra')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->string('estado')->default('pendiente'); // Ejemplos: pendiente, completado, cancelado
-            $table->text('notas')->nullable(); // Notas adicionales sobre la compra
+            $table->string('estado')->default('pendiente'); 
+            $table->text('notas')->nullable(); 
             $table->timestamps();
         });
     }

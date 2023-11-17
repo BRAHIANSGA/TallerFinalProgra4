@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2023 a las 02:45:28
+-- Tiempo de generación: 17-11-2023 a las 21:45:16
 -- Versión del servidor: 8.0.32
 -- Versión de PHP: 8.2.4
 
@@ -41,7 +41,8 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Producto', 'producto', '2023-11-16 04:15:00', '2023-11-16 04:15:00', NULL);
+(1, 'Producto', 'producto genericos', '2023-11-16 04:15:00', '2023-11-17 08:22:44', NULL),
+(4, 'Ingeniería Sostenible', 'producto oton crear', '2023-11-17 08:26:00', '2023-11-17 08:26:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -52,6 +53,7 @@ INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `created_at`, `updated_
 CREATE TABLE `clientes` (
   `id` bigint UNSIGNED NOT NULL,
   `usuario_id` bigint UNSIGNED NOT NULL,
+  `cedula` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `apellidos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero_celular` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -60,6 +62,25 @@ CREATE TABLE `clientes` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `usuario_id`, `cedula`, `nombre`, `apellidos`, `numero_celular`, `direccion`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '12225555', 'Juan', 'Pérez', '1234567890', 'Calle Falsa 123', NULL, NULL, NULL),
+(2, 1, '', 'María', 'González', '1234567891', 'Avenida Siempre Viva 456', NULL, NULL, NULL),
+(3, 1, '', 'Carlos', 'Hernández', '1234567892', 'Boulevard de las Flores 789', NULL, NULL, NULL),
+(4, 1, '', 'Ana', 'Martínez', '1234567893', 'Calle del Sol 101', NULL, NULL, NULL),
+(5, 1, '', 'Luis', 'López', '1234567894', 'Avenida del Río 202', NULL, NULL, NULL),
+(6, 1, '', 'Carmen', 'García', '1234567895', 'Paseo de los Olivos 303', NULL, NULL, NULL),
+(7, 1, '', 'Fernando', 'Álvarez', '1234567896', 'Camino Largo 404', NULL, NULL, NULL),
+(8, 1, '', 'Sofía', 'Ruiz', '1234567897', 'Vía Rápida 505', NULL, NULL, NULL),
+(9, 1, '', 'Manuel', 'Gómez', '1234567898', 'Ronda del Valle 606', NULL, NULL, NULL),
+(10, 1, '', 'Lucíammm', 'Jiménez', '1234567899', 'Travesía de la Montaña 707', NULL, '2023-11-17 07:10:36', '2023-11-17 07:10:36'),
+(11, 1, '', 'BRAHIAN', 'gil', '1234567899', 'cr19c#14-86', '2023-11-17 07:12:58', '2023-11-17 07:52:20', '2023-11-17 07:52:20'),
+(12, 2, '', 'BRAHIAN', 'gil arias', '3216203644', 'Travesía de la Montaña 707', '2023-11-17 07:47:17', '2023-11-17 07:47:17', NULL),
+(13, 3, '31566656', 'brahian prueba', 'gil prueba', '23261', 'cr19c#14-86', '2023-11-18 00:30:58', '2023-11-18 00:30:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -71,6 +92,7 @@ CREATE TABLE `compras` (
   `id` bigint UNSIGNED NOT NULL,
   `cliente_id` bigint UNSIGNED NOT NULL,
   `producto_id` bigint UNSIGNED NOT NULL,
+  `codigo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cantidad` int NOT NULL,
   `precio_unitario` decimal(8,2) NOT NULL,
   `total` decimal(8,2) NOT NULL,
@@ -181,12 +203,12 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria_id`, `descripcion`, `precio`, `stock`, `imagen`, `disponible`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Laptop XYZ', 'LT123', 1, 'Laptop de alto rendimiento con pantalla de 15 pulgadas', 1200.00, 10, 'https://es.digitaltrends.com/wp-content/uploads/2023/08/apple-macbook-pro-14-rear-view-e1666806673134.jpg?fit=720%2C480&p=1', 1, NULL, NULL, NULL),
+(1, 'Laptop XYZ', 'LT123', 1, 'Laptop de alto rendimiento con pantalla de 15 pulgadas', 1200.00, 9, 'https://es.digitaltrends.com/wp-content/uploads/2023/08/apple-macbook-pro-14-rear-view-e1666806673134.jpg?fit=720%2C480&p=1', 1, NULL, '2023-11-18 01:37:43', NULL),
 (2, 'Teléfono Inteligente ABC', 'TP456', 1, 'Smartphone de última generación con cámara de alta calidad', 800.00, 15, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, '2023-11-16 10:17:04', '2023-11-16 10:17:04'),
-(3, 'Cámara Digital PRO', 'CD789', 1, 'Cámara digital con lente profesional y 100MP', 500.00, 8, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 0, NULL, '2023-11-16 10:35:06', NULL),
-(4, 'Tableta Gráfica', 'TG012', 1, 'Tableta gráfica ideal para diseño y arte digital', 300.00, 12, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
+(3, 'Cámara Digital PRO', 'CD789', 1, 'Cámara digital con lente profesional y 100MP', 500.00, 6, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 0, NULL, '2023-11-18 01:37:53', NULL),
+(4, 'Tableta Gráfica', 'TG012', 1, 'Tableta gráfica ideal para diseño y arte digital', 300.00, 11, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, '2023-11-18 01:44:19', NULL),
 (5, 'Smartwatch Moderno', 'SW345', 1, 'Reloj inteligente con seguimiento de actividad física y notificaciones', 250.00, 20, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
-(6, 'Audífonos Bluetooth', 'AB678', 1, 'Audífonos inalámbricos con cancelación de ruido y alta fidelidad', 150.00, 30, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
+(6, 'Audífonos Bluetooth', 'AB678', 1, 'Audífonos inalámbricos con cancelación de ruido y alta fidelidad', 150.00, 29, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, '2023-11-18 01:44:27', NULL),
 (7, 'Consola de Videojuegos', 'CV901', 1, 'Consola de última generación para juegos en 4K', 500.00, 5, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
 (8, 'Drone con Cámara', 'DC234', 1, 'Drone volador con cámara HD y control remoto', 400.00, 7, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
 (9, 'Impresora 3D', 'I3D567', 1, 'Impresora 3D de escritorio para modelado y prototipado', 600.00, 4, 'https://cdn-icons-png.flaticon.com/512/1554/1554591.png', 1, NULL, NULL, NULL),
@@ -212,7 +234,8 @@ CREATE TABLE `type_user` (
 --
 
 INSERT INTO `type_user` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'administrador', '2023-11-16 03:06:04', '2023-11-16 03:06:28');
+(1, 'administrador', '2023-11-16 03:06:04', '2023-11-16 03:06:28'),
+(2, 'Cliente', '2023-11-17 02:46:19', '2023-11-17 02:46:19');
 
 -- --------------------------------------------------------
 
@@ -237,7 +260,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `type_user_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'brahian', 'brahian776@gmail.com', NULL, 'brahiang321', 1, NULL, NULL, NULL);
+(1, 'brahian', 'brahian776@gmail.com', NULL, '$2y$12$Fe4pVwAd8r3yxB6d5IS45ufGTExPqINjfrcKC1XKUwPL712N4e7hO', 1, NULL, NULL, NULL),
+(2, 'Catolica1', 'brahian.gil@ucp.edu.co', NULL, '$2y$12$Fe4pVwAd8r3yxB6d5IS45ufGTExPqINjfrcKC1XKUwPL712N4e7hO', 2, NULL, '2023-11-17 07:47:17', '2023-11-17 07:47:17'),
+(3, 'brahian12', 'prueba@gmail.com', NULL, '$2y$12$Hv2SWXwU0NuXk810zdl4H.mMGSN5SnKCfKF7JVC2DneToAunS0HlO', 1, NULL, '2023-11-18 00:30:57', '2023-11-18 00:30:57');
 
 --
 -- Índices para tablas volcadas
@@ -321,13 +346,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -363,13 +388,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `type_user`
 --
 ALTER TABLE `type_user`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
