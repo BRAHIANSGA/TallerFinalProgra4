@@ -44,13 +44,26 @@ const ProductModal = ({
     disponible: false,
   });
   useEffect(() => {
-    if (open && isEdit) {
+    if (open && isEdit && productId) {
       fetchCategorias();
       loadProductData();
-    } else if (open) {
+    } else {
       fetchCategorias();
+      resetForm();
     }
   }, [open, isEdit, productId]);
+   const resetForm = () => {
+    setProducto({
+      nombre: "",
+      codigo: "",
+      categoria_id: "",
+      descripcion: "",
+      precio: "",
+      stock: "",
+      imagen: "",
+      disponible: false,
+    });
+  };
   const loadProductData = async () => {
     try {
       const response = await axios.get(

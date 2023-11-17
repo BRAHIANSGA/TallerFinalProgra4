@@ -47,8 +47,6 @@ const ProductList = () => {
     } catch (error) {
       console.error("Error al eliminar el producto:", error);
     }
-    console.log("Eliminar producto con id:", id);
-    // Implementa la lógica de eliminación aquí
   };
   const handleEdit = (id) => {
     setEditingProductId(id);

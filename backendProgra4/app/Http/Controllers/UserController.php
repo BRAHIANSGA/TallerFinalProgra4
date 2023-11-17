@@ -17,24 +17,27 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::where('email', $validatedData['email'])
-             ->where('password', $validatedData['password'])
-             ->first();
-        
-        if (!$user) {
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if ($user && Hash::check($validatedData['password'], $user->password)) {
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso',
+                'user' => $user,
+                'typeUser' => $user->typeUser
+            ]);
+            // La contraseña es correcta
+        } else {
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
-        }       
+            // La contraseña no es correcta
+        }
 
 
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso',
-            'user' => $user,
-            'typeUser' => $user->typeUser
-        ]);
+
+
     }
     public function index()
     {
-        $users = User::all(); 
+        $users = User::all();
         return response()->json($users);
     }
 
@@ -44,7 +47,7 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'type_user_id' => 'exists:type_user,id' 
+            'type_user_id' => 'exists:type_user,id'
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
